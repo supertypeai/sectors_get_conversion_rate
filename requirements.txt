@@ -1,1 +1,1 @@
-forex-python==1.8
+requests==2.31.0

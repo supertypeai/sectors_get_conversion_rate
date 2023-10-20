@@ -1,15 +1,19 @@
 import datetime
 import json
 
-from forex_python.converter import CurrencyRates
+import requests
 
 
 def get_conversion_rate():
-    cr = CurrencyRates()
     conversion_rate = {}
+    response = requests.get("https://api.exchangerate-api.com/v4/latest/USD")
+    rate_data = response.json()
+    usd_idr_rate = rate_data["rates"]["IDR"]
+    conversion_rate["USD"] = {"IDR": usd_idr_rate}
+
     dt_now = datetime.datetime.now()
     conversion_rate["datetime"] = dt_now.strftime("%Y-%m-%d %H:%M:%S")
-    conversion_rate["USD"] = {"IDR": cr.get_rate("USD", "IDR", dt_now)}
+
     return conversion_rate
 
 
