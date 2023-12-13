@@ -3,7 +3,9 @@ name: Update Conversion Rate Daily
 on:
   schedule:
     - cron: '0 18 * * *'  # Schedule to run at 1:00 AM GMT+7 every day
-
+  
+  workflow_dispatch:
+      
 jobs:
   update_conversion_rate:
     runs-on: ubuntu-latest
