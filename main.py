@@ -10,6 +10,7 @@ def get_conversion_rate():
     response = requests.get("https://api.exchangerate-api.com/v4/latest/USD")
     usd_idr_rate = response.json()["rates"]["IDR"]
     usd_sgd_rate = response.json()["rates"]["SGD"]
+    usd_myr_rate = response.json()["rates"]["MYR"]
 
     response = requests.get("https://api.exchangerate-api.com/v4/latest/AUD")
     aud_sgd_rate = response.json()["rates"]['SGD']
@@ -25,7 +26,8 @@ def get_conversion_rate():
 
 
     conversion_rate["USD"] = {"IDR": usd_idr_rate,
-                          "SGD":usd_sgd_rate,}
+                          "SGD":usd_sgd_rate,
+                          "MYR":usd_myr_rate}
 
     conversion_rate["AUD"] = {"SGD":aud_sgd_rate}
 
@@ -42,7 +44,7 @@ def get_conversion_rate():
     return conversion_rate
 
 
-# if __name__ == "__main__":
-#     conversion_rate = get_conversion_rate()
-#     with open("conversion_rate.json", "w") as outfile:
-#         json.dump(conversion_rate, outfile)
+if __name__ == "__main__":
+    conversion_rate = get_conversion_rate()
+    with open("conversion_rate.json", "w") as outfile:
+        json.dump(conversion_rate, outfile)
