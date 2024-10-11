@@ -3,6 +3,15 @@ import json
 
 import requests
 
+import logging
+from imp import reload
+
+def initiate_logging(LOG_FILENAME):
+    reload(logging)
+
+    formatLOG = '%(asctime)s - %(levelname)s: %(message)s'
+    logging.basicConfig(filename=LOG_FILENAME,level=logging.INFO, format=formatLOG)
+    logging.info('Program started')
 
 def get_conversion_rate():
     conversion_rate = {}
@@ -77,6 +86,15 @@ def get_conversion_rate():
 
 
 if __name__ == "__main__":
+    LOG_FILENAME = 'scrapper.log'
+
+    initiate_logging(LOG_FILENAME)
+
     conversion_rate = get_conversion_rate()
     with open("conversion_rate.json", "w") as outfile:
         json.dump(conversion_rate, outfile)
+
+    dt_now = datetime.datetime.now()
+    dt_now = dt_now.strftime("%Y-%m-%d")
+    
+    logging.info(f"{dt_now} conversion rate data has been scrapped")
