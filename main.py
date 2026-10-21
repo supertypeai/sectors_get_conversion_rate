@@ -4,7 +4,7 @@ import json
 import requests
 
 import logging
-from imp import reload
+from importlib import reload
 
 def initiate_logging(LOG_FILENAME):
     reload(logging)
